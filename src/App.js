@@ -35,7 +35,7 @@ function App() {
       <div className='App'>
         <div className='container'>
           <video autoPlay muted loop>
-            <source src={video} type='video/mp4'/>
+            <source src={video} type='video/mp4' playsinline/>
           </video>
             <h1>Find a Recipe</h1>
         </div>
