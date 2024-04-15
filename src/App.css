@@ -14,7 +14,7 @@ video{
   position: fixed;
   top: 0;
   left: 0;
-  -webkit-z-index: -1;
+  z-index: -1;
 }
 .container{
   display: flex;
