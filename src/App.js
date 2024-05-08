@@ -1,8 +1,11 @@
 import { useEffect, useState} from 'react';
 import './App.css';
+import './index.css';
 import video from './recipes.mp4';
 import image from './salad.png';
 import MyRecipesComponent from './MyRecipesComponent';
+import LoaderPage from './LoaderPage';
+
 
 
 function App() {
@@ -11,13 +14,16 @@ function App() {
 
       const [mySearch, setMySearch] = useState("");
       const [myRecipes, setMyRecipes] = useState([]);
-      const [wordSubmitted, setWordSubmitted] = useState(" ")
+      const [wordSubmitted, setWordSubmitted] = useState(" ");
+      const [stateLoader, setStateLoader] = useState(false)
 
       useEffect(() => {
         const getRecipe = async () => {
+          setStateLoader(true)
           const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${ MY_ID}&app_key=${MY_KEY}`)
           const data = await response.json();
           setMyRecipes(data.hits);
+          setStateLoader(false)
         }
         getRecipe();
       }, [wordSubmitted])
@@ -33,8 +39,12 @@ function App() {
 
     return(
       <div className='App'>
+
+        {stateLoader && <LoaderPage/>}
+
+
         <div className='container'>
-          <video autoPlay muted loop playsinline>
+          <video autoPlay muted loop>
             <source src={video} type='video/mp4'/>
           </video>
             <h1>Find a Recipe</h1>
