@@ -1,5 +1,4 @@
 import { useEffect, useState} from 'react';
-// import { useCallback } from 'react';
 import './App.css';
 import './index.css';
 import video from './recipes.mp4';
@@ -19,73 +18,6 @@ function App() {
       const [wordSubmitted, setWordSubmitted] = useState(" ");
       const [stateLoader, setStateLoader] = useState(false)
 
-       
-//     const getNewRecipe = useCallback(async () => {
-//       setStateLoader(true)
-//       const responce = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${ MY_ID}&app_key=${MY_KEY}`);
-
-//       if (responce.ok){
-//         setStateLoader(false)
-//         const data = await responce.json();
-//         setMyRecipes(data.hits);
-//       } else {
-//         setStateLoader(false);
-//         alert("type an inggredient")
-//         // Swal.fire("Ingredients entered incorrectly!");
-//       }
-//       // const data = await responce.json();
-//       // setMyRecipes(data.hits);
-//       // setStateLoader(false)
-//     },[wordSubmitted])
-//     useEffect(() =>{
-//       if (wordSubmitted !== '') {
-//         let mySearch = wordSubmitted.split(/[,,;,\n,\r]/);
-//         getNewRecipe(mySearch);
-//       }
-//       // getNewRecipe();
-//       }, [wordSubmitted])
-      
-
-  
-//   const myRecipeSearch = (e) => {
-//   setMySearch(e.target.value);
-// }
-// const finalSearch = (e) => {
-//   e.preventDefault();
-//   setWordSubmitted(mySearch);
-// }
-
-
-    //   const getRecipe = async () => {
-    //     setStateLoader(true)
-    //     const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${ MY_ID}&app_key=${MY_KEY}`)
-    //     if(response.ok) {
-    //       setStateLoader(false);
-    //       const data = await response.json();
-    //       setMyRecipes(data.hits);
-    //       setStateLoader(false)
-    //   } 
-    //   else {
-    //     setStateLoader(false);
-    //     alert("Type an ingredient")
-    //     // Swal.fire("Ingredients entered incorrectly!");
-    //   }
-    // }
-    // const myRecipeSearch = (e) => {
-    //     setMySearch(e.target.value)
-    //   }
-    //       const finalSearch = (e) => {
-    //       e.preventDefault();
-    //       setWordSubmitted(mySearch)
-    //    }
-
-    //   useEffect(() => {
-    //     if (wordSubmitted !== '') {
-    //       let ingr = wordSubmitted.split(/[,,;,\n,\r]/);
-    //       getRecipe(ingr);
-    //     }
-    //   }, [wordSubmitted])
-
       useEffect(() => {
         const getRecipe = async () => {
           setStateLoader(true)
@@ -96,16 +28,7 @@ function App() {
             const data = await response.json();
             setMyRecipes(data.hits);
            } 
-        // else if (wordSubmitted !== ''){
-        //   let subm = wordSubmitted.split(/[,,;,\n,\r]/);
-        //   getRecipe(subm)
-        // }
 
-        //    else{
-        //       setStateLoader(false);
-        //       Swal.fire("Ingredients entered incorrectly!");
-            
-        //   }
         }
         getRecipe();
       }, [wordSubmitted])
@@ -118,39 +41,16 @@ function App() {
         e.preventDefault();
          setWordSubmitted(mySearch)
       }
-      const handleClick = () => {
+      const handleClick = (e) => {
         if(!mySearch) {
           setStateLoader(false);
-          Swal.fire("Please enter your ingredients!");
+          Swal.fire("Please enter your ingredients!")
         }
-        else if(mySearch !== wordSubmitted.split(/[,,;,\n,\r]/)){
-          setStateLoader(false);
-          Swal.fire("Ingredients entered incorectly!");
+        else if(!mySearch.type){
+          Swal.fire("Ingredients entered incorectly")
+          return
         }
-        
       }
-
-
-      //  useEffect(() => {
-      //   const getRecipe = async () => {
-      //   setStateLoader(true)
-      //   const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${wordSubmitted}&app_id=${ MY_ID}&app_key=${MY_KEY}`);
-      //   const data = await response.json();
-      //   setMyRecipes(data.hits);
-      //   setStateLoader(false)
-      // }
-      //  getRecipe();
-      //   }, [wordSubmitted])
-
-      //   const myRecipeSearch = (e) => {
-      //   setMySearch(e.target.value)
-      // }
-
-      // const finalSearch = (e) => {
-      //   e.preventDefault();
-      //   setWordSubmitted(mySearch)
-      // }
-
 
     return(
       <div className='App'>
@@ -166,7 +66,7 @@ function App() {
 
         <div className= 'container'>
           <form onSubmit={finalSearch}>
-             <input className='search' placeholder='search...'  onChange={myRecipeSearch} value={mySearch}/>
+             <input className='search' type='text' placeholder='search...'  onChange={myRecipeSearch} value={mySearch}/>
             
 
         <div className='container'>
