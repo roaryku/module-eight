@@ -96,16 +96,16 @@ function App() {
             const data = await response.json();
             setMyRecipes(data.hits);
            } 
-        else if (wordSubmitted !== ''){
-          let subm = wordSubmitted.split(/[,,;,\n,\r]/);
-          getRecipe(subm)
-        }
+        // else if (wordSubmitted !== ''){
+        //   let subm = wordSubmitted.split(/[,,;,\n,\r]/);
+        //   getRecipe(subm)
+        // }
 
-           else{
-              setStateLoader(false);
-              Swal.fire("Ingredients entered incorrectly!");
+        //    else{
+        //       setStateLoader(false);
+        //       Swal.fire("Ingredients entered incorrectly!");
             
-          }
+        //   }
         }
         getRecipe();
       }, [wordSubmitted])
@@ -115,8 +115,19 @@ function App() {
       }
 
       const finalSearch = (e) => {
-         e.preventDefault();
+        e.preventDefault();
          setWordSubmitted(mySearch)
+      }
+      const handleClick = () => {
+        if(!mySearch) {
+          setStateLoader(false);
+          Swal.fire("Please enter your ingredients!");
+        }
+        else if(mySearch !== wordSubmitted.split(/[,,;,\n,\r]/)){
+          setStateLoader(false);
+          Swal.fire("Ingredients entered incorectly!");
+        }
+        
       }
 
 
@@ -156,14 +167,14 @@ function App() {
         <div className= 'container'>
           <form onSubmit={finalSearch}>
              <input className='search' placeholder='search...'  onChange={myRecipeSearch} value={mySearch}/>
-            </form>
+            
 
         <div className='container'>
-           <button onClick={finalSearch}>
+           <button onClick={handleClick}>
              <img src={image} alt="icon"/>
             </button>
-      </div>
-    
+          </div>
+      </form>
     </div>
     {myRecipes.map((element, index )=> (
       <MyRecipesComponent
