@@ -41,16 +41,18 @@ function App() {
         e.preventDefault();
          setWordSubmitted(mySearch)
       }
-      const handleClick = (e) => {
+      const handleClick = () => {
         if(!mySearch) {
           setStateLoader(false);
           Swal.fire("Please enter your ingredients!")
+          return false
         }
-        else if(!mySearch.type){
+        else if(!wordSubmitted){
+          setStateLoader(false);
           Swal.fire("Ingredients entered incorectly")
-          return
-        }
-      }
+         } 
+       }
+      
 
     return(
       <div className='App'>
